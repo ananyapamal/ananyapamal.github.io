@@ -1,0 +1,66 @@
+:root {
+  --pink: #f8c8dc;
+  --yellow: #fff4c1;
+  --text: #333;
+  --accent: #e295b5;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+body {
+  background-color: var(--yellow);
+  color: var(--text);
+  line-height: 1.6;
+  padding: 2rem;
+}
+
+header {
+  background-color: var(--pink);
+  padding: 1.5rem 2rem;
+  border-radius: 1rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+header h1 {
+  margin-bottom: 0.5rem;
+  font-size: 2.5rem;
+  color: var(--text);
+}
+
+nav a {
+  margin: 0 1rem;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 500;
+}
+
+nav a:hover {
+  color: var(--accent);
+}
+
+section {
+  margin-bottom: 3rem;
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+section h2 {
+  margin-bottom: 1rem;
+  color: var(--accent);
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: #666;
+}
