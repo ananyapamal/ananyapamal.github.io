@@ -1,6 +1,7 @@
 :root {
+  --offwhite: #fefaf6;
   --pink: #f8c8dc;
-  --yellow: #fff4c1;
+  --yellow: #fff9db;
   --text: #333;
   --accent: #e295b5;
 }
@@ -13,10 +14,12 @@
 }
 
 body {
-  background-color: var(--yellow);
+  background-color: var(--offwhite);
   color: var(--text);
   line-height: 1.6;
   padding: 2rem;
+  position: relative;
+  overflow-x: hidden;
 }
 
 header {
@@ -25,6 +28,8 @@ header {
   border-radius: 1rem;
   text-align: center;
   margin-bottom: 2rem;
+  z-index: 1;
+  position: relative;
 }
 
 header h1 {
@@ -50,6 +55,8 @@ section {
   padding: 1.5rem;
   border-radius: 1rem;
   box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  z-index: 1;
+  position: relative;
 }
 
 section h2 {
@@ -63,4 +70,31 @@ footer {
   margin-top: 2rem;
   font-size: 0.9rem;
   color: #666;
+  z-index: 1;
+  position: relative;
+}
+
+/* Abstract elements */
+.abstract-shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(40px);
+  opacity: 0.4;
+  z-index: 0;
+}
+
+.shape1 {
+  width: 300px;
+  height: 300px;
+  background: var(--pink);
+  top: -100px;
+  left: -100px;
+}
+
+.shape2 {
+  width: 400px;
+  height: 400px;
+  background: var(--yellow);
+  bottom: -150px;
+  right: -150px;
 }
