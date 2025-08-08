@@ -1,9 +1,9 @@
 :root {
   --offwhite: #fefaf6;
-  --pink: #f8c8dc;
-  --yellow: #fff9db;
+  --pink:rgb(217, 242, 246);
+  --yellow:rgb(232, 229, 213);
   --text: #333;
-  --accent: #e295b5;
+  --accent:rgb(43, 32, 143);
 }
 
 * {
@@ -52,17 +52,14 @@ nav a:hover {
 
 #about {
   background-color: var(--pink);
-  padding: 60px 20px;
 }
 
 #education {
   background-color: var(--offwhite);
-  padding: 60px 20px;
 }
 
 #projects {
   background-color: var(--pink);
-  padding: 60px 20px;
 }
 
 footer {
