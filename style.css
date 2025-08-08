@@ -1,7 +1,7 @@
 :root {
   --offwhite: #fefaf6;
-  --pink:rgb(217, 242, 246);
-  --yellow:rgb(232, 229, 213);
+  --lightblue:rgb(217, 242, 246);
+  --cream:rgb(232, 229, 213);
   --text: #333;
   --accent:rgb(43, 32, 143);
 }
@@ -14,7 +14,7 @@
 }
 
 body {
-  background-color: var(--offwhite);
+  background-color: var(--cream);
   color: var(--text);
   line-height: 1.6;
   padding: 2rem;
@@ -51,17 +51,17 @@ nav a:hover {
 }
 
 #about {
-  background-color: var(--pink);
+  background-color: var(--lightblue);
   padding: 0px 10px;
 }
 
 #education {
-  background-color: var(--offwhite);
+  background-color: var(--cream);
   padding: 0px 10px;
 }
 
 #projects {
-  background-color: var(--pink);
+  background-color: var(--lightblue);
   padding: 0px 10px;
 }
 
@@ -87,7 +87,7 @@ footer {
 .shape1 {
   width: 300px;
   height: 300px;
-  background: var(--pink);
+  background: var(--lightblue);
   top: -100px;
   left: -100px;
 }
@@ -95,7 +95,7 @@ footer {
 .shape2 {
   width: 400px;
   height: 400px;
-  background: var(--yellow);
+  background: var(--cream);
   bottom: -150px;
   right: -150px;
 }
