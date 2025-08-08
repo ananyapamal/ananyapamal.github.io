@@ -35,7 +35,7 @@ header nav {
 
 header h1 {
   margin-bottom: 0.5rem;
-  font-size: 2.5rem;
+  font-size: 1.5rem;
   color: var(--text);
 }
 
@@ -51,17 +51,17 @@ nav a:hover {
 }
 
 #about {
-  background-color: --pink;
+  background-color: var(--pink);
   padding: 60px 20px;
 }
 
 #education {
-  background-color: --offwhite;
+  background-color: var(--offwhite);
   padding: 60px 20px;
 }
 
 #projects {
-  background-color: --pink;
+  background-color: var(--pink);
   padding: 60px 20px;
 }
 
