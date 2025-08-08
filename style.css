@@ -43,26 +43,26 @@ nav a {
   margin: 0 1rem;
   text-decoration: none;
   color: var(--text);
-  font-weight: 500;
+  font-weight: 200;
 }
 
 nav a:hover {
   color: var(--accent);
 }
 
-section {
-  margin-bottom: 3rem;
-  background-color: white;
-  padding: 1.5rem;
-  border-radius: 1rem;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-  z-index: 1;
-  position: relative;
+#about {
+  background-color: --pink;
+  padding: 60px 20px;
 }
 
-section h2 {
-  margin-bottom: 1rem;
-  color: var(--accent);
+#education {
+  background-color: --offwhite;
+  padding: 60px 20px;
+}
+
+#projects {
+  background-color: --pink;
+  padding: 60px 20px;
 }
 
 footer {
