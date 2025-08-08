@@ -50,21 +50,21 @@ nav a:hover {
 }
 
 #about {
-  background-color: var(--lightblue);
-  padding: 60px 20px;
-  position: relative;
-  z-index: 0;
-}
-
-#education {
   background-color: var(--offwhite);
   padding: 60px 20px;
   position: relative;
   z-index: 0;
 }
 
-#projects {
+#education {
   background-color: var(--lightblue);
+  padding: 60px 20px;
+  position: relative;
+  z-index: 0;
+}
+
+#projects {
+  background-color: var(--offwhite);
   padding: 60px 20px;
   position: relative;
   z-index: 0;
