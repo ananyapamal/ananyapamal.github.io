@@ -14,7 +14,7 @@
 }
 
 body {
-  background-color: var(--cream);
+  background-color: var(--offwhite);
   color: var(--text);
   line-height: 1.6;
   position: relative;
@@ -46,7 +46,7 @@ nav a {
 }
 
 nav a:hover {
-  color: var(--accent);
+  color: var(--lightblue);
 }
 
 #about {
@@ -55,7 +55,7 @@ nav a:hover {
 }
 
 #education {
-  background-color: var(--cream);
+  background-color: var(--offwhite);
   padding: 6opx 20px;
 }
 
@@ -94,7 +94,7 @@ footer {
 .shape2 {
   width: 400px;
   height: 400px;
-  background: var(--cream);
+  background: var(--offwhite);
   bottom: -150px;
   right: -150px;
 }
