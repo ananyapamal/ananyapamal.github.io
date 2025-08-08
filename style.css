@@ -57,6 +57,8 @@ section h2 {
 }
 
 #about {
+  display: flex;
+  align-items: center;
   background-color: var(--offwhite);
   padding: 60px 60px;
   position: relative;
