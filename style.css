@@ -36,7 +36,7 @@ header nav {
 
 header h1 {
   margin-bottom: 0.2rem;
-  font-size: 1.5rem;
+  font-size: 1rem;
   color: var(--text);
 }
 
@@ -56,6 +56,13 @@ section h2 {
   font-weight: 400;
 }
 
+#bubbleCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1; /* Behind content */
+}
+
 #about {
   display: flex;
   align-items: center;
@@ -72,7 +79,7 @@ section h2 {
   z-index: 0;
 }
 
-#projects {
+#experience {
   background-color: var(--offwhite);
   padding: 60px 60px;
   position: relative;
