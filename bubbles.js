@@ -1,4 +1,5 @@
-const canvas = document.getElementById('bubbleCanvas');
+const aboutSection = document.querySelector('#about');
+const canvas = document.querySelector('#bubbleCanvas');
 const ctx = canvas.getContext('2d');
 
 function resizeCanvas() {
@@ -7,15 +8,16 @@ function resizeCanvas() {
     canvas.height = canvas.offsetHeight * dpr;
     ctx.scale(dpr, dpr);
   }
-  resizeCanvas();
+  
   window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
 
-canvas.width = canvas.offsetWidth;
-canvas.height = canvas.offsetHeight;
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
 
-window.addEventListener('resize', () => {
-  canvas.width = canvas.offsetWidth;
-  canvas.height = canvas.offsetHeight;
+    window.addEventListener('resize', () => {
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
 });
 
 class Bubble {
