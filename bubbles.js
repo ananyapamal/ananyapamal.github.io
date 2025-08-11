@@ -1,12 +1,12 @@
 const canvas = document.getElementById('bubbleCanvas');
 const ctx = canvas.getContext('2d');
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.width = canvas.offsetWidth;
+canvas.height = canvas.offsetHeight;
 
 window.addEventListener('resize', () => {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  canvas.width = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
 });
 
 class Bubble {
@@ -16,7 +16,7 @@ class Bubble {
   
   reset() {
     this.x = Math.random() * canvas.width;
-    this.y = canvas.height + Math.random() * 100;
+    this.y = canvas.height + Math.random() * 50;
     this.radius = Math.random() * 20 + 10;
     this.speed = Math.random() * 1 + 0.5;
     this.opacity = Math.random() * 0.5 + 0.3;
