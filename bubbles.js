@@ -22,14 +22,39 @@ class Bubble {
     this.opacity = Math.random() * 0.5 + 0.3;
     this.color = `rgba(173, 216, 230, ${this.opacity})`;
     this.popped = false;
+    this.baseHue = Math.random() * 360; // different starting color per bubble
   }
   
   draw() {
+    const gradient = ctx.createRadialGradient(
+      this.x, this.y, this.radius * 0.2,  // small bright center
+      this.x, this.y, this.radius         // full bubble edge
+    );
+  
+    // Random fluorescent-like hues for the rainbow effect
+    const hue = (this.baseHue + performance.now() / 50) % 360;
+    gradient.addColorStop(0, `hsla(${hue}, 100%, 80%, ${this.opacity})`);
+    gradient.addColorStop(0.5, `hsla(${(hue + 60) % 360}, 100%, 70%, ${this.opacity * 0.8})`);
+    gradient.addColorStop(1, `hsla(${(hue + 120) % 360}, 100%, 60%, 0)`);
+  
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-    ctx.fillStyle = this.color;
+    ctx.fillStyle = gradient;
+    ctx.fill();
+
+
+    // ✨ White highlight
+    ctx.beginPath();
+    ctx.arc(
+        this.x - this.radius * 0.3,       // slightly to top-left
+        this.y - this.radius * 0.3,
+        this.radius * 0.3,                // small highlight size
+        0, Math.PI * 2
+    );
+    ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity * 0.7})`;
     ctx.fill();
   }
+  
   
   update() {
     if (!this.popped) {
