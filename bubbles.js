@@ -1,16 +1,15 @@
-const aboutSection = document.querySelector('#about');
-const canvas = document.querySelector('#bubbleCanvas');
+
 const ctx = canvas.getContext('2d');
+const aboutWrapper = document.getElementById('about-wrapper');
+const bubbleCanvas = document.getElementById('bubbleCanvas');
 
 function resizeCanvas() {
-    const dpr = window.devicePixelRatio || 1;
-    canvas.width = canvas.offsetWidth * dpr;
-    canvas.height = canvas.offsetHeight * dpr;
-    ctx.scale(dpr, dpr);
-  }
-  
-  window.addEventListener('resize', resizeCanvas);
-  resizeCanvas();
+  bubbleCanvas.width = aboutWrapper.offsetWidth;
+  bubbleCanvas.height = aboutWrapper.offsetHeight;
+}
+
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
 
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;

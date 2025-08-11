@@ -19,15 +19,17 @@
   </header>
 
   <main>
-    <section id="about">
+    <div id="about-wrapper" style="position: relative;">
       <canvas id="bubbleCanvas"></canvas>
-      <img src="cow.jpg" alt="cuter cow" class="profile-pic">
-      <div class="about-text">
-        <h2>Hi! I'm Ananya Pamal.</h2>
-        <p>Currently finding the purpose I was put on Earth for...organizing my portfolio should help with that, right?</p>
-      </div>
-      <script src="bubbles.js"></script>
-    </section>
+      <section id="about" style="position: relative; z-index: 1;">
+        <img src="cow.jpg" alt="cuter cow" class="profile-pic">
+        <div class="about-text">
+          <h2>Hi! I'm Ananya Pamal.</h2>
+          <p>Currently finding the purpose I was put on Earth for...organizing my portfolio should help with that, right?</p>
+        </div>
+      </section>
+    </div>
+    
 
     <section id="education">
       <h2>Education</h2>
