@@ -149,12 +149,21 @@ footer {
   box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* subtle shadow */
 }
 
-.education-pic {
-  width: 150px;         /* controls size */
-  height: 150px;         /* keep aspect ratio */
-  object-fit: cover;
-  display: block;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* subtle shadow */
+.education-container {
+  display: flex;
+  align-items: flex-start; /* aligns text and image at the top */
+  gap: 20px; /* space between text and image */
+}
+
+.education-text {
+  flex: 1; /* takes remaining space */
+  max-width: 60%; /* keeps it narrow */
+}
+
+.education-image img {
+  width: 300px; /* adjust size */
+  height: auto;
+  border-radius: 10px; /* rounded corners */
 }
 
 
