@@ -19,12 +19,6 @@ function resizeCanvas() {
 window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
 
-// Draw a simple circle to check visibility
-ctx.fillStyle = 'rgba(0, 150, 255, 0.5)';
-ctx.beginPath();
-ctx.arc(50, 50, 40, 0, Math.PI * 2);
-ctx.fill();
-
 class Bubble {
   constructor() {
     this.reset();
@@ -33,7 +27,7 @@ class Bubble {
   reset() {
     this.x = Math.random() * aboutWrapper.offsetWidth;
     this.y = Math.random() * aboutWrapper.offsetHeight;
-    this.radius = Math.random() * 20 + 10;
+    this.radius = Math.random() * 20 + 30;
     this.opacity = Math.random() * 0.5 + 0.3;
     this.color = `rgba(173, 216, 230, ${this.opacity})`;
     this.popped = false;
@@ -113,7 +107,7 @@ class Bubble {
 }
 
 let bubbles = [];
-const NUM_BUBBLES = 50;
+const NUM_BUBBLES = 30;
 
 function initBubbles() {
   bubbles = [];
