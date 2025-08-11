@@ -137,8 +137,8 @@ footer {
 }
 
 .profile-pic {
-  width: 150px;         /* controls size */
-  height: 150px;         /* keep aspect ratio */
+  width: 350px;         /* controls size */
+  height: 350px;         /* keep aspect ratio */
   border-radius: 50%;
   object-fit: cover;
   display: block;
