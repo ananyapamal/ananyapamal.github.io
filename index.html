@@ -6,6 +6,25 @@
   <title>Ananya Pamal</title>
   <link rel="stylesheet" href="style.css" />
 </head>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const image = document.querySelector(".education-image img");
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          image.classList.add("visible");
+          observer.unobserve(image); // only trigger once
+        }
+      });
+    }, { threshold: 0.3 }); // triggers when 30% visible
+
+    observer.observe(image);
+  });
+</script>
+
+
 <body>
 
   <header>

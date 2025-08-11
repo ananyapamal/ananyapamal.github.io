@@ -161,9 +161,19 @@ footer {
 }
 
 .education-image img {
-  width: 300px; /* adjust size */
+  width: 300px;
   height: auto;
-  border-radius: 10px; /* rounded corners */
+  border-radius: 10px;
+
+  /* Start hidden and slightly moved */
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.education-image img.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 
