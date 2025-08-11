@@ -86,14 +86,12 @@ section h2 {
 }
 
 #education {
-  background-color: var(--lightblue);
   padding: 60px 60px;
   position: relative;
   z-index: 0;
 }
 
 #experience {
-  background-color: var(--offwhite);
   padding: 60px 60px;
   position: relative;
   z-index: 0;
