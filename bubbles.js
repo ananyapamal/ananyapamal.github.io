@@ -18,11 +18,13 @@ class Bubble {
     this.x = Math.random() * canvas.width;
     this.y = canvas.height + Math.random() * 50;
     this.radius = Math.random() * 20 + 10;
-    this.speed = Math.random() * 1 + 0.5;
     this.opacity = Math.random() * 0.5 + 0.3;
     this.color = `rgba(173, 216, 230, ${this.opacity})`;
     this.popped = false;
     this.baseHue = Math.random() * 360; // different starting color per bubble
+    this.angle = Math.random() * Math.PI * 2; // random direction in radians
+    this.speed = Math.random() * 0.5 + 0.3;    // slower for floaty feel
+    this.drift = (Math.random() - 0.5) * 0.4;  // slight horizontal drift
   }
   
   draw() {
@@ -58,12 +60,20 @@ class Bubble {
   
   update() {
     if (!this.popped) {
-      this.y -= this.speed;
-      if (this.y + this.radius < 0) {
-        this.reset();
+      // Move in direction of angle + random drift
+      this.x += Math.cos(this.angle) * this.speed + this.drift;
+      this.y += Math.sin(this.angle) * this.speed;
+  
+      // Keep bubbles inside canvas bounds
+      if (this.x - this.radius < 0 || this.x + this.radius > canvas.width) {
+        this.angle = Math.PI - this.angle; // bounce horizontally
+      }
+      if (this.y - this.radius < 0 || this.y + this.radius > canvas.height) {
+        this.angle = -this.angle; // bounce vertically
       }
     }
   }
+  
   
   pop() {
     this.popped = true;
