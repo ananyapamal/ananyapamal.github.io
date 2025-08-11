@@ -150,8 +150,8 @@ footer {
 }
 
 .education-pic {
-  width: auto;         /* controls size */
-  height: auto;         /* keep aspect ratio */
+  width: 150px;         /* controls size */
+  height: 150px;         /* keep aspect ratio */
   object-fit: cover;
   display: block;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* subtle shadow */
