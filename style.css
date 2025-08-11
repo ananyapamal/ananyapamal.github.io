@@ -14,8 +14,8 @@
 }
 
 body {
-  background-color: var(--offwhite);
-  color: var(--text);
+  background-color: black;
+  color: white;
   line-height: 1.6;
   position: relative;
   overflow-x: hidden;
