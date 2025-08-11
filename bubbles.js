@@ -130,16 +130,18 @@ function animate() {
 animate();
 
 bubbleCanvas.addEventListener('click', (e) => {
-  const rect = bubbleCanvas.getBoundingClientRect();
-  const mouseX = e.clientX - rect.left;
-  const mouseY = e.clientY - rect.top;
-
-  bubbles.forEach(bubble => {
-    const dx = mouseX - bubble.x;
-    const dy = mouseY - bubble.y;
-    const distance = Math.sqrt(dx * dx + dy * dy);
-    if (distance < bubble.radius) {
-      bubble.pop();
-    }
+    const rect = bubbleCanvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+  
+    const mouseX = (e.clientX - rect.left) / dpr;
+    const mouseY = (e.clientY - rect.top) / dpr;
+  
+    bubbles.forEach(bubble => {
+      const dx = mouseX - bubble.x;
+      const dy = mouseY - bubble.y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      if (distance < bubble.radius) {
+        bubble.pop();
+      }
+    });
   });
-});
