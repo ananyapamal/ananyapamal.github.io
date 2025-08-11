@@ -160,10 +160,18 @@ footer {
   max-width: 60%; /* keeps it narrow */
 }
 
+.education-image {
+  width: 350px;   /* size of image area */
+  height: 250px;  /* height of image area */
+  overflow: hidden; /* hides cropped parts */
+  border-radius: 10px; /* optional rounded corners */
+}
+
 .education-image img {
-  width: 300px;
-  height: auto;
-  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 
   /* Start hidden and slightly moved */
   opacity: 0;
