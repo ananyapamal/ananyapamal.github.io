@@ -137,8 +137,8 @@ footer {
 }
 
 .profile-pic {
-  width: 350px;         /* controls size */
-  height: 350px;         /* keep aspect ratio */
+  width: 250px;         /* controls size */
+  height: 250px;         /* keep aspect ratio */
   border-radius: 50%;
   object-fit: cover;
   display: block;
@@ -148,5 +148,5 @@ footer {
 
 .about-text {
   max-width: 300px;
-  text-align: center;
+  text-align: left;
 }
