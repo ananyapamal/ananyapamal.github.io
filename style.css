@@ -135,3 +135,9 @@ footer {
   margin-right: 20px;   /* space between image and text */
   box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* subtle shadow */
 }
+
+
+.about-text {
+  max-width: 300px;
+  text-align: center;
+}
