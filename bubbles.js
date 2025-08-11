@@ -3,21 +3,18 @@ const aboutWrapper = document.getElementById('about-wrapper');
 const ctx = bubbleCanvas.getContext('2d');
 
 function resizeCanvas() {
-  // Get wrapper size
-  const width = aboutWrapper.offsetWidth;
-  const height = aboutWrapper.offsetHeight;
-  const dpr = window.devicePixelRatio || 1;
+    const width = aboutWrapper.clientWidth;
+    const height = aboutWrapper.clientHeight;
+    const dpr = window.devicePixelRatio || 1;
+    
+    bubbleCanvas.width = width * dpr;
+    bubbleCanvas.height = height * dpr;
+    bubbleCanvas.style.width = width + 'px';
+    bubbleCanvas.style.height = height + 'px';
   
-  // Set canvas size accounting for device pixel ratio
-  bubbleCanvas.width = width * dpr;
-  bubbleCanvas.height = height * dpr;
-  bubbleCanvas.style.width = width + 'px';
-  bubbleCanvas.style.height = height + 'px';
-
-  // Scale the context to handle high DPI screens
-  ctx.setTransform(1, 0, 0, 1, 0, 0); // reset any existing transform
-  ctx.scale(dpr, dpr);
-}
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.scale(dpr, dpr);
+  }
 
 window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
