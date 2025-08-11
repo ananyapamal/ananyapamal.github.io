@@ -149,6 +149,14 @@ footer {
   box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* subtle shadow */
 }
 
+.education-pic {
+  width: auto;         /* controls size */
+  height: auto;         /* keep aspect ratio */
+  object-fit: cover;
+  display: block;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* subtle shadow */
+}
+
 
 .about-text {
   max-width: 300px;
