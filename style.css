@@ -74,6 +74,7 @@ section h2 {
   padding: 4rem 2rem;
   flex-wrap: wrap;
   position: relative;
+  min-height: 600px;
   z-index: 0;
 }
 

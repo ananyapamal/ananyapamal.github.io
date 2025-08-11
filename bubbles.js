@@ -16,7 +16,7 @@ class Bubble {
   
   reset() {
     this.x = Math.random() * canvas.width;
-    this.y = canvas.height + Math.random() * 50;
+    this.y = canvas.height * Math.random();
     this.radius = Math.random() * 20 + 10;
     this.opacity = Math.random() * 0.5 + 0.3;
     this.color = `rgba(173, 216, 230, ${this.opacity})`;
