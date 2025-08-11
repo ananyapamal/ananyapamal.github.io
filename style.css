@@ -38,7 +38,7 @@ header nav {
 header h1 {
   margin-bottom: 0.2rem;
   font-size: 1rem;
-  color: var(--text);
+  color: white;
 }
 
 nav a {
