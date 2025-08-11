@@ -22,6 +22,12 @@ function resizeCanvas() {
 window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
 
+// Draw a simple circle to check visibility
+ctx.fillStyle = 'rgba(0, 150, 255, 0.5)';
+ctx.beginPath();
+ctx.arc(50, 50, 40, 0, Math.PI * 2);
+ctx.fill();
+
 class Bubble {
   constructor() {
     this.reset();
