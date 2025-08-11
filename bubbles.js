@@ -1,6 +1,15 @@
 const canvas = document.getElementById('bubbleCanvas');
 const ctx = canvas.getContext('2d');
 
+function resizeCanvas() {
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = canvas.offsetWidth * dpr;
+    canvas.height = canvas.offsetHeight * dpr;
+    ctx.scale(dpr, dpr);
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
 canvas.width = canvas.offsetWidth;
 canvas.height = canvas.offsetHeight;
 
@@ -28,34 +37,50 @@ class Bubble {
   }
   
   draw() {
-    const gradient = ctx.createRadialGradient(
-      this.x, this.y, this.radius * 0.2,  // small bright center
-      this.x, this.y, this.radius         // full bubble edge
+    // Improve sharpness by matching canvas resolution to device pixel ratio
+    const dpr = window.devicePixelRatio || 1;
+    ctx.save();
+    ctx.scale(1 / dpr, 1 / dpr);
+  
+    // 🌈 Rainbow refraction gradient
+    const rainbow = ctx.createRadialGradient(
+      this.x, this.y, this.radius * 0.1,  // bright center
+      this.x, this.y, this.radius         // outer edge
     );
   
-    // Random fluorescent-like hues for the rainbow effect
     const hue = (this.baseHue + performance.now() / 50) % 360;
-    gradient.addColorStop(0, `hsla(${hue}, 100%, 80%, ${this.opacity})`);
-    gradient.addColorStop(0.5, `hsla(${(hue + 60) % 360}, 100%, 70%, ${this.opacity * 0.8})`);
-    gradient.addColorStop(1, `hsla(${(hue + 120) % 360}, 100%, 60%, 0)`);
+    rainbow.addColorStop(0, `hsla(${hue}, 100%, 90%, 0.2)`);   // almost clear center
+    rainbow.addColorStop(0.4, `hsla(${(hue + 60) % 360}, 100%, 80%, 0.3)`);
+    rainbow.addColorStop(0.8, `hsla(${(hue + 120) % 360}, 100%, 70%, 0.5)`);
+    rainbow.addColorStop(1, `hsla(${(hue + 180) % 360}, 100%, 80%, 0.2)`);
   
+    // Fill with rainbow gradient
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-    ctx.fillStyle = gradient;
+    ctx.fillStyle = rainbow;
     ctx.fill();
-
-
-    // ✨ White highlight
+  
+    // ✨ Highlight reflection
     ctx.beginPath();
     ctx.arc(
-        this.x - this.radius * 0.3,       // slightly to top-left
-        this.y - this.radius * 0.3,
-        this.radius * 0.3,                // small highlight size
-        0, Math.PI * 2
+      this.x - this.radius * 0.3,
+      this.y - this.radius * 0.3,
+      this.radius * 0.25,
+      0, Math.PI * 2
     );
-    ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity * 0.7})`;
+    ctx.fillStyle = `rgba(255, 255, 255, 0.6)`;
     ctx.fill();
+  
+    // ⚪ Thin white edge
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.radius - 0.5, 0, Math.PI * 2);
+    ctx.strokeStyle = `rgba(255, 255, 255, 0.8)`;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  
+    ctx.restore();
   }
+  
   
   
   update() {
