@@ -92,6 +92,11 @@ section h2 {
   z-index: 0;
 }
 
+#education p {
+  font-size: 1.4rem; /* bigger body text */
+  line-height: 1.6;  /* nicer spacing */
+}
+
 #experience {
   padding: 60px 60px;
   position: relative;
@@ -158,6 +163,7 @@ footer {
 .education-text {
   flex: 1; /* takes remaining space */
   max-width: 60%; /* keeps it narrow */
+  margin-left: 50px;
 }
 
 .education-image {
