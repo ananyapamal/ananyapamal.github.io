@@ -161,8 +161,8 @@ footer {
 }
 
 .education-image {
-  width: 350px;   /* size of image area */
-  height: 250px;  /* height of image area */
+  width: 400px;   /* size of image area */
+  height: 400px;  /* height of image area */
   overflow: hidden; /* hides cropped parts */
   border-radius: 10px; /* optional rounded corners */
 }
