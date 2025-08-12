@@ -90,12 +90,12 @@ section h2 {
   padding: 60px 60px;
   position: relative;
   z-index: 0;
+  margin-left: 50px;
 }
 
 #education p {
   font-size: 1.2rem; /* bigger body text */
   line-height: 1.6;  /* nicer spacing */
-  margin-left: 50px;
 }
 
 .education-container {
