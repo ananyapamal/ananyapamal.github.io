@@ -44,7 +44,7 @@ header h1 {
 nav a {
   margin: 0 1rem;
   text-decoration: none;
-  color: var(--text);
+  color: white;
   font-weight: 200;
 }
 
