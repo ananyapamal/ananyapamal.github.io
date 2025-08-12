@@ -132,12 +132,6 @@ section h2 {
   transform: translateY(0);
 }
 
-#contact {
-  padding: 60px 60px;
-  position: relative;
-  z-index: 0;
-}
-
 footer {
   text-align: center;
   padding: 1rem;
