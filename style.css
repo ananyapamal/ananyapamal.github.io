@@ -57,6 +57,47 @@ section h2 {
   font-weight: 400;
 }
 
+.hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at bottom, #001433, #000010 80%);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Rotating Planet */
+.planet-container {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  margin-bottom: 20px;
+}
+
+.planet {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg");
+  background-size: cover;
+  animation: rotate 40s linear infinite;
+  box-shadow: inset -40px 0 80px rgba(0, 0, 0, 0.6);
+}
+
+@keyframes rotate {
+  from { background-position-x: 0; }
+  to { background-position-x: 1000px; }
+}
+
+.hero-text {
+  font-size: 3em;
+  font-weight: bold;
+  margin-top: 10px;
+  text-shadow: 0 0 15px rgba(135, 206, 235, 0.9);
+}
+
 #bubbleCanvas {
   position: absolute;
   top: 0;
