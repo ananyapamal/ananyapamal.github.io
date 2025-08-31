@@ -137,8 +137,9 @@ animate();
 // --- Click to pop ---
 canvas.addEventListener("click", e => {
   const rect = canvas.getBoundingClientRect();
-  const mouseX = e.clientX - rect.left;
-  const mouseY = e.clientY - rect.top;
+  const dpr = window.devicePixelRatio || 1;
+  const mouseX = (e.clientX - rect.left) * dpr;
+  const mouseY = (e.clientY - rect.top) * dpr;
 
   bubbles.forEach(bubble => {
     if (!bubble.popped && bubble.isClicked(mouseX, mouseY)) {
