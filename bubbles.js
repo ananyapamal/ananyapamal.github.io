@@ -1,85 +1,82 @@
-const bubbleCanvas = document.getElementById('bubbleCanvas');
-const aboutWrapper = document.getElementById('about-wrapper');
-const ctx = bubbleCanvas.getContext('2d');
+// bubbles.js
 
+const canvas = document.getElementById("bubbleCanvas");
+const ctx = canvas.getContext("2d");
+const aboutWrapper = document.getElementById("about-wrapper");
+
+let bubbles = [];
+const NUM_BUBBLES = 30;
+
+// --- Resize canvas to fit container ---
 function resizeCanvas() {
-    const width = aboutWrapper.clientWidth;
-    const height = aboutWrapper.clientHeight;
-    const dpr = window.devicePixelRatio || 1;
-    
-    bubbleCanvas.width = width * dpr;
-    bubbleCanvas.height = height * dpr;
-    bubbleCanvas.style.width = width + 'px';
-    bubbleCanvas.style.height = height + 'px';
-  
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.scale(dpr, dpr);
-  }
+  const width = aboutWrapper.clientWidth;
+  const height = aboutWrapper.clientHeight;
+  const dpr = window.devicePixelRatio || 1;
 
-window.addEventListener('resize', resizeCanvas);
+  canvas.width = width * dpr;
+  canvas.height = height * dpr;
+  canvas.style.width = width + "px";
+  canvas.style.height = height + "px";
+
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.scale(dpr, dpr);
+}
+
+window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
 
+// --- Bubble class ---
 class Bubble {
   constructor() {
     this.reset();
   }
-  
+
   reset() {
     this.x = Math.random() * aboutWrapper.offsetWidth;
     this.y = Math.random() * aboutWrapper.offsetHeight;
     this.radius = Math.random() * 20 + 30;
-    this.opacity = Math.random() * 0.5 + 0.3;
-    this.color = `rgba(173, 216, 230, ${this.opacity})`;
-    this.popped = false;
-    this.baseHue = Math.random() * 360;
-    this.angle = Math.random() * Math.PI * 2;
+    this.baseRadius = this.radius;
     this.speed = Math.random() * 0.5 + 0.3;
     this.drift = (Math.random() - 0.5) * 0.4;
+    this.angle = Math.random() * Math.PI * 2;
+    this.popped = false;
+    this.opacity = Math.random() * 0.5 + 0.3;
+    this.baseHue = Math.random() * 360;
   }
-  
+
   draw() {
-    // Rainbow refraction gradient
+    if (this.popped && this.radius <= 0) return;
+
+    // Rainbow gradient
     const now = performance.now();
     const hue = (this.baseHue + now / 50) % 360;
-    const rainbow = ctx.createRadialGradient(
+    const gradient = ctx.createRadialGradient(
       this.x, this.y, this.radius * 0.1,
       this.x, this.y, this.radius
     );
-    rainbow.addColorStop(0, `hsla(${hue}, 100%, 90%, 0.2)`);
-    rainbow.addColorStop(0.4, `hsla(${(hue + 60) % 360}, 100%, 80%, 0.3)`);
-    rainbow.addColorStop(0.8, `hsla(${(hue + 120) % 360}, 100%, 70%, 0.5)`);
-    rainbow.addColorStop(1, `hsla(${(hue + 180) % 360}, 100%, 80%, 0.2)`);
+    gradient.addColorStop(0, `hsla(${hue}, 100%, 90%, 0.2)`);
+    gradient.addColorStop(0.4, `hsla(${(hue + 60) % 360}, 100%, 80%, 0.3)`);
+    gradient.addColorStop(0.8, `hsla(${(hue + 120) % 360}, 100%, 70%, 0.5)`);
+    gradient.addColorStop(1, `hsla(${(hue + 180) % 360}, 100%, 80%, 0.2)`);
 
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-    ctx.fillStyle = rainbow;
+    ctx.fillStyle = gradient;
     ctx.fill();
 
-    // Highlight reflection
+    // Highlight
     ctx.beginPath();
-    ctx.arc(
-      this.x - this.radius * 0.3,
-      this.y - this.radius * 0.3,
-      this.radius * 0.25,
-      0, Math.PI * 2
-    );
-    ctx.fillStyle = `rgba(255, 255, 255, 0.6)`;
+    ctx.arc(this.x - this.radius * 0.3, this.y - this.radius * 0.3, this.radius * 0.25, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,255,255,0.6)`;
     ctx.fill();
-
-    // Thin white edge
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.radius - 0.5, 0, Math.PI * 2);
-    ctx.strokeStyle = `rgba(255, 255, 255, 0.8)`;
-    ctx.lineWidth = 1;
-    ctx.stroke();
   }
-  
+
   update() {
     if (!this.popped) {
       this.x += Math.cos(this.angle) * this.speed + this.drift;
       this.y += Math.sin(this.angle) * this.speed;
 
-      // Bounce off edges using current aboutWrapper size
+      // Bounce off edges
       if (this.x - this.radius < 0) {
         this.x = this.radius;
         this.angle = Math.PI - this.angle;
@@ -95,20 +92,27 @@ class Bubble {
         this.y = aboutWrapper.offsetHeight - this.radius;
         this.angle = -this.angle;
       }
+    } else {
+      // Shrink bubble smoothly when popped
+      this.radius -= 2;
+      if (this.radius <= 0) {
+        this.reset();
+      }
     }
   }
-  
+
+  isClicked(mx, my) {
+    const dx = mx - this.x;
+    const dy = my - this.y;
+    return Math.sqrt(dx * dx + dy * dy) < this.radius;
+  }
+
   pop() {
     this.popped = true;
-    this.color = 'rgba(255, 255, 255, 0.8)';
-    this.radius += 5;
-    setTimeout(() => this.reset(), 200);
   }
 }
 
-let bubbles = [];
-const NUM_BUBBLES = 30;
-
+// --- Initialize bubbles ---
 function initBubbles() {
   bubbles = [];
   for (let i = 0; i < NUM_BUBBLES; i++) {
@@ -118,6 +122,7 @@ function initBubbles() {
 
 initBubbles();
 
+// --- Animation loop ---
 function animate() {
   ctx.clearRect(0, 0, aboutWrapper.offsetWidth, aboutWrapper.offsetHeight);
   bubbles.forEach(bubble => {
@@ -129,19 +134,15 @@ function animate() {
 
 animate();
 
-bubbleCanvas.addEventListener('click', (e) => {
-    const rect = bubbleCanvas.getBoundingClientRect();
-    const dpr = window.devicePixelRatio || 1;
-  
-    const mouseX = (e.clientX - rect.left) / dpr;
-    const mouseY = (e.clientY - rect.top) / dpr;
-  
-    bubbles.forEach(bubble => {
-      const dx = mouseX - bubble.x;
-      const dy = mouseY - bubble.y;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-      if (distance < bubble.radius) {
-        bubble.pop();
-      }
-    });
+// --- Click to pop ---
+canvas.addEventListener("click", e => {
+  const rect = canvas.getBoundingClientRect();
+  const mouseX = e.clientX - rect.left;
+  const mouseY = e.clientY - rect.top;
+
+  bubbles.forEach(bubble => {
+    if (!bubble.popped && bubble.isClicked(mouseX, mouseY)) {
+      bubble.pop();
+    }
   });
+});
