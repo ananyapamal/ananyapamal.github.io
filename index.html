@@ -8,7 +8,7 @@
 </head>
 <body>
 
-  <!-- About Me -->
+  <!-- Header -->
   <header>
     <h1>Ananya Pamal</h1>
     <nav>
@@ -17,13 +17,14 @@
     </nav>
   </header>
 
-      <!-- Hero Section -->
-  <section class="hero">
-    <canvas id="planetCanvas"></canvas>
-    <h1 class="hero-text">Welcome to My Planet</h1>
-  </section>
-
   <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <canvas id="planetCanvas"></canvas>
+      <h1 class="hero-text">Welcome to My Planet</h1>
+    </section>
+
+    <!-- About Me -->
     <div id="about-wrapper" style="position: relative;">
       <section id="about" style="position: relative; z-index: 1;">
         <canvas id="bubbleCanvas"></canvas>
@@ -81,13 +82,6 @@
     const planet = new THREE.Mesh(geometry, material);
     scene.add(planet);
 
-    // Rings
-    const ringGeometry = new THREE.RingGeometry(2.5, 4, 64);
-    const ringMaterial = new THREE.MeshBasicMaterial({ color: 0xcccccc, side: THREE.DoubleSide, transparent: true, opacity: 0.6 });
-    const rings = new THREE.Mesh(ringGeometry, ringMaterial);
-    rings.rotation.x = Math.PI / 2.5;
-    planet.add(rings);
-
     // Camera position
     camera.position.z = 6;
 
@@ -120,6 +114,5 @@
 
   <!-- Your Bubbles -->
   <script src="bubbles.js"></script>
-  <script src="planet.js"></script>
 </body>
 </html>
