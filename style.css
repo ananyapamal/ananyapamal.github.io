@@ -60,24 +60,36 @@ section h2 {
 .hero {
   height: 100vh;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   background: radial-gradient(circle at bottom, #001433, #000010 80%);
   overflow: hidden;
   position: relative;
+  flex-direction: column;
 }
 
-/* Hero Text Animation */
+/* Make planet canvas a background */
+#planetCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;  /* stays behind */
+  display: block;
+}
+
+/* Ensure hero text is above */
 .hero-text {
   font-size: 3em;
   font-weight: bold;
-  margin-top: 10px;
   text-shadow: 0 0 15px rgba(135, 206, 235, 0.9);
 
   opacity: 0;
   transform: translateX(-50px);
   animation: fadeInLeft 2s ease forwards;
+  z-index: 1;  /* stays on top */
+  position: relative;
 }
 
 @keyframes fadeInLeft {
