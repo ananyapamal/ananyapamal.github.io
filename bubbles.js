@@ -7,7 +7,7 @@ const aboutWrapper = document.getElementById("about-wrapper");
 let bubbles = [];
 const NUM_BUBBLES = 30;
 
-// --- Resize canvas to fit container ---
+// --- Resize canvas to fit container with high-DPI support ---
 function resizeCanvas() {
   const width = aboutWrapper.clientWidth;
   const height = aboutWrapper.clientHeight;
@@ -34,37 +34,40 @@ class Bubble {
   reset() {
     this.x = Math.random() * aboutWrapper.offsetWidth;
     this.y = Math.random() * aboutWrapper.offsetHeight;
-    this.radius = Math.random() * 20 + 30;
-    this.baseRadius = this.radius;
-    this.speed = Math.random() * 0.5 + 0.3;
-    this.drift = (Math.random() - 0.5) * 0.4;
+    this.radius = Math.random() * 15 + 15; // smaller, realistic size
+    this.speed = Math.random() * 0.4 + 0.2;
+    this.drift = (Math.random() - 0.5) * 0.3;
     this.angle = Math.random() * Math.PI * 2;
     this.popped = false;
-    this.opacity = Math.random() * 0.5 + 0.3;
-    this.baseHue = Math.random() * 360;
+    this.opacity = Math.random() * 0.4 + 0.3;
+    this.baseHue = Math.random() * 360; // subtle color shift
   }
 
   draw() {
-    if (this.popped && this.radius <= 0) return;
+    if (this.radius <= 0) return;
 
-    // Rainbow gradient
-    const now = performance.now();
-    const hue = (this.baseHue + now / 50) % 360;
+    // Radial gradient for realistic bubble look
     const gradient = ctx.createRadialGradient(
-      this.x, this.y, this.radius * 0.1,
-      this.x, this.y, this.radius
+      this.x - this.radius * 0.2,
+      this.y - this.radius * 0.2,
+      this.radius * 0.1,
+      this.x,
+      this.y,
+      this.radius
     );
-    gradient.addColorStop(0, `hsla(${hue}, 100%, 90%, 0.2)`);
-    gradient.addColorStop(0.4, `hsla(${(hue + 60) % 360}, 100%, 80%, 0.3)`);
-    gradient.addColorStop(0.8, `hsla(${(hue + 120) % 360}, 100%, 70%, 0.5)`);
-    gradient.addColorStop(1, `hsla(${(hue + 180) % 360}, 100%, 80%, 0.2)`);
+
+    const hue = (this.baseHue + performance.now() / 100) % 360;
+
+    gradient.addColorStop(0, `hsla(${hue}, 100%, 95%, ${this.opacity})`);
+    gradient.addColorStop(0.4, `hsla(${hue}, 100%, 85%, ${this.opacity * 0.8})`);
+    gradient.addColorStop(1, `hsla(${hue}, 100%, 75%, ${this.opacity * 0.5})`);
 
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
     ctx.fillStyle = gradient;
     ctx.fill();
 
-    // Highlight reflection
+    // Highlight reflection for shininess
     ctx.beginPath();
     ctx.arc(this.x - this.radius * 0.3, this.y - this.radius * 0.3, this.radius * 0.25, 0, Math.PI * 2);
     ctx.fillStyle = "rgba(255,255,255,0.6)";
@@ -93,12 +96,11 @@ class Bubble {
         this.angle = -this.angle;
       }
     } else {
-      // Shrink bubble smoothly when popped, but do NOT reset
-      if (this.radius > 0) this.radius -= 2;
-      else this.radius = 0; // keep at 0
+      // Shrink smoothly when popped
+      if (this.radius > 0) this.radius -= 1.5;
+      else this.radius = 0;
     }
   }
-
 
   isClicked(mx, my) {
     const dx = mx - this.x;
@@ -121,7 +123,7 @@ function initBubbles() {
 
 initBubbles();
 
-// --- Animate ---
+// --- Animation loop ---
 function animate() {
   ctx.clearRect(0, 0, aboutWrapper.offsetWidth, aboutWrapper.offsetHeight);
   bubbles.forEach(bubble => {
