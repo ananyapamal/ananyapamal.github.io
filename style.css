@@ -68,11 +68,6 @@ section h2 {
   position: relative;
 }
 
-@keyframes rotate {
-  from { background-position-x: 0; }
-  to { background-position-x: 1000px; }
-}
-
 .hero-text {
   font-size: 3em;
   font-weight: bold;
