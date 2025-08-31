@@ -93,13 +93,12 @@ class Bubble {
         this.angle = -this.angle;
       }
     } else {
-      // Shrink smoothly when popped
-      this.radius -= 2;
-      if (this.radius <= 0) {
-        this.reset();
-      }
+      // Shrink bubble smoothly when popped, but do NOT reset
+      if (this.radius > 0) this.radius -= 2;
+      else this.radius = 0; // keep at 0
     }
   }
+
 
   isClicked(mx, my) {
     const dx = mx - this.x;
