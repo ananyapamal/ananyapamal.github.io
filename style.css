@@ -83,7 +83,6 @@ section h2 {
 .hero-text {
   font-size: 3em;
   font-weight: bold;
-  text-shadow: 0 0 15px rgba(135, 206, 235, 0.9);
 
   opacity: 0;
   transform: translateX(-50px);
