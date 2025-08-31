@@ -58,7 +58,7 @@ section h2 {
 }
 
 .hero {
-  height: 100vh;
+  height: 70vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -127,6 +127,20 @@ section h2 {
   min-height: 600px;  /* or whatever height you want */
 }
 
+.profile-pic {
+  width: 250px;         /* controls size */
+  height: 250px;         /* keep aspect ratio */
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* subtle shadow */
+}
+
+.about-text {
+  max-width: 300px;
+  text-align: left;
+}
+
 #education {
   padding: 100px 90px;
   position: relative;
@@ -183,16 +197,3 @@ footer {
   position: relative;
 }
 
-.profile-pic {
-  width: 250px;         /* controls size */
-  height: 250px;         /* keep aspect ratio */
-  border-radius: 50%;
-  object-fit: cover;
-  display: block;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* subtle shadow */
-}
-
-.about-text {
-  max-width: 300px;
-  text-align: left;
-}
