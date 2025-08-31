@@ -62,62 +62,7 @@
   <!-- ============ SCRIPTS ============ -->
   <!-- Three.js -->
   <script src="https://unpkg.com/three@0.150.1/build/three.min.js"></script>
-
-  <!-- Planet Code -->
-  <script>
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({canvas: document.getElementById("planetCanvas")});
-    renderer.setSize(window.innerWidth, window.innerHeight);
-
-    // Light
-    const light = new THREE.DirectionalLight(0xffffff, 1);
-    light.position.set(5, 2, 5);
-    scene.add(light);
-
-    const ambient = new THREE.AmbientLight(0x404040, 1.5); 
-    scene.add(ambient);
-
-    // Planet
-    const texture = new THREE.TextureLoader().load("images/ananya_vegas.jpeg");
-    const geometry = new THREE.SphereGeometry(2, 64, 64);
-    const material = new THREE.MeshPhongMaterial({ map: texture });
-    const planet = new THREE.Mesh(geometry, material);
-    scene.add(planet);
-
-    // Camera
-    camera.position.z = 6;
-    camera.lookAt(planet.position);
-
-
-    // Animate
-    function animate() {
-      requestAnimationFrame(animate);
-      planet.rotation.y += 0.003;
-      renderer.render(scene, camera);
-    }
-    animate();
-  </script>
-
-  <!-- Observer Script -->
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const image = document.querySelector(".education-image img");
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            image.classList.add("visible");
-            observer.unobserve(image); // only trigger once
-          }
-        });
-      }, { threshold: 0.3 });
-
-      observer.observe(image);
-    });
-  </script>
-
-  <!-- Your Bubbles -->
+  <script src="planet.js"></script>
   <script src="bubbles.js"></script>
 
 </body>
