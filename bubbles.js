@@ -1,100 +1,147 @@
-// bubbles.js
+const bubbleCanvas = document.getElementById('bubbleCanvas');
+const aboutWrapper = document.getElementById('about-wrapper');
+const ctx = bubbleCanvas.getContext('2d');
 
-const canvas = document.getElementById("bubbleCanvas");
-const ctx = canvas.getContext("2d");
-
-// Make canvas fill its container
 function resizeCanvas() {
-  canvas.width = canvas.offsetWidth;
-  canvas.height = canvas.offsetHeight;
-}
-window.addEventListener("resize", resizeCanvas);
+    const width = aboutWrapper.clientWidth;
+    const height = aboutWrapper.clientHeight;
+    const dpr = window.devicePixelRatio || 1;
+    
+    bubbleCanvas.width = width * dpr;
+    bubbleCanvas.height = height * dpr;
+    bubbleCanvas.style.width = width + 'px';
+    bubbleCanvas.style.height = height + 'px';
+  
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.scale(dpr, dpr);
+  }
+
+window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
 
-// Bubble class
 class Bubble {
-  constructor(x, y, r, speed) {
-    this.x = x;
-    this.y = y;
-    this.r = r;
-    this.speed = speed;
-    this.opacity = 0.5;   // normal opacity
+  constructor() {
+    this.reset();
+  }
+  
+  reset() {
+    this.x = Math.random() * aboutWrapper.offsetWidth;
+    this.y = Math.random() * aboutWrapper.offsetHeight;
+    this.radius = Math.random() * 20 + 30;
+    this.opacity = Math.random() * 0.5 + 0.3;
+    this.color = `rgba(173, 216, 230, ${this.opacity})`;
     this.popped = false;
-    this.fade = false;
+    this.baseHue = Math.random() * 360;
+    this.angle = Math.random() * Math.PI * 2;
+    this.speed = Math.random() * 0.5 + 0.3;
+    this.drift = (Math.random() - 0.5) * 0.4;
   }
-
+  
   draw() {
-    if (this.popped && !this.fade) return; // fully popped
+    // Rainbow refraction gradient
+    const now = performance.now();
+    const hue = (this.baseHue + now / 50) % 360;
+    const rainbow = ctx.createRadialGradient(
+      this.x, this.y, this.radius * 0.1,
+      this.x, this.y, this.radius
+    );
+    rainbow.addColorStop(0, `hsla(${hue}, 100%, 90%, 0.2)`);
+    rainbow.addColorStop(0.4, `hsla(${(hue + 60) % 360}, 100%, 80%, 0.3)`);
+    rainbow.addColorStop(0.8, `hsla(${(hue + 120) % 360}, 100%, 70%, 0.5)`);
+    rainbow.addColorStop(1, `hsla(${(hue + 180) % 360}, 100%, 80%, 0.2)`);
+
     ctx.beginPath();
-    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(135,206,235,${this.opacity})`;
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+    ctx.fillStyle = rainbow;
     ctx.fill();
-  }
 
+    // Highlight reflection
+    ctx.beginPath();
+    ctx.arc(
+      this.x - this.radius * 0.3,
+      this.y - this.radius * 0.3,
+      this.radius * 0.25,
+      0, Math.PI * 2
+    );
+    ctx.fillStyle = `rgba(255, 255, 255, 0.6)`;
+    ctx.fill();
+
+    // Thin white edge
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.radius - 0.5, 0, Math.PI * 2);
+    ctx.strokeStyle = `rgba(255, 255, 255, 0.8)`;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+  
   update() {
-    if (this.popped) {
-      if (this.fade) {
-        this.opacity -= 0.05;
-        if (this.opacity <= 0) {
-          this.fade = false;
-        }
+    if (!this.popped) {
+      this.x += Math.cos(this.angle) * this.speed + this.drift;
+      this.y += Math.sin(this.angle) * this.speed;
+
+      // Bounce off edges using current aboutWrapper size
+      if (this.x - this.radius < 0) {
+        this.x = this.radius;
+        this.angle = Math.PI - this.angle;
+      } else if (this.x + this.radius > aboutWrapper.offsetWidth) {
+        this.x = aboutWrapper.offsetWidth - this.radius;
+        this.angle = Math.PI - this.angle;
       }
-      return;
-    }
 
-    this.y -= this.speed;
-    if (this.y + this.r < 0) {
-      this.y = canvas.height + this.r; // wrap to bottom
-      this.x = Math.random() * canvas.width;
+      if (this.y - this.radius < 0) {
+        this.y = this.radius;
+        this.angle = -this.angle;
+      } else if (this.y + this.radius > aboutWrapper.offsetHeight) {
+        this.y = aboutWrapper.offsetHeight - this.radius;
+        this.angle = -this.angle;
+      }
     }
   }
-
-  isClicked(mx, my) {
-    const dx = this.x - mx;
-    const dy = this.y - my;
-    return Math.sqrt(dx*dx + dy*dy) < this.r;
-  }
-
+  
   pop() {
     this.popped = true;
-    this.fade = true;
-    // Optional: play pop sound here
+    this.color = 'rgba(255, 255, 255, 0.8)';
+    this.radius += 5;
+    setTimeout(() => this.reset(), 200);
   }
 }
 
-// Create bubbles
-const bubbles = [];
-for (let i = 0; i < 30; i++) {
-  bubbles.push(
-    new Bubble(
-      Math.random() * canvas.width,
-      Math.random() * canvas.height,
-      20 + Math.random()*10,
-      0.5 + Math.random() * 1.5
-    )
-  );
+let bubbles = [];
+const NUM_BUBBLES = 30;
+
+function initBubbles() {
+  bubbles = [];
+  for (let i = 0; i < NUM_BUBBLES; i++) {
+    bubbles.push(new Bubble());
+  }
 }
 
-// Animate bubbles
+initBubbles();
+
 function animate() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  bubbles.forEach(b => {
-    b.update();
-    b.draw();
+  ctx.clearRect(0, 0, aboutWrapper.offsetWidth, aboutWrapper.offsetHeight);
+  bubbles.forEach(bubble => {
+    bubble.update();
+    bubble.draw();
   });
   requestAnimationFrame(animate);
 }
+
 animate();
 
-// Click-to-pop
-canvas.addEventListener("click", (e) => {
-  const rect = canvas.getBoundingClientRect();
-  const mx = e.clientX - rect.left;
-  const my = e.clientY - rect.top;
-
-  bubbles.forEach(b => {
-    if (!b.popped && b.isClicked(mx, my)) {
-      b.pop();
-    }
+bubbleCanvas.addEventListener('click', (e) => {
+    const rect = bubbleCanvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+  
+    const mouseX = (e.clientX - rect.left) / dpr;
+    const mouseY = (e.clientY - rect.top) / dpr;
+  
+    bubbles.forEach(bubble => {
+      const dx = mouseX - bubble.x;
+      const dy = mouseY - bubble.y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      if (distance < bubble.radius) {
+        bubble.pop();
+      }
+    });
   });
-});
