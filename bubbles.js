@@ -64,10 +64,10 @@ class Bubble {
     ctx.fillStyle = gradient;
     ctx.fill();
 
-    // Highlight
+    // Highlight reflection
     ctx.beginPath();
     ctx.arc(this.x - this.radius * 0.3, this.y - this.radius * 0.3, this.radius * 0.25, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(255,255,255,0.6)`;
+    ctx.fillStyle = "rgba(255,255,255,0.6)";
     ctx.fill();
   }
 
@@ -93,7 +93,7 @@ class Bubble {
         this.angle = -this.angle;
       }
     } else {
-      // Shrink bubble smoothly when popped
+      // Shrink smoothly when popped
       this.radius -= 2;
       if (this.radius <= 0) {
         this.reset();
@@ -122,7 +122,7 @@ function initBubbles() {
 
 initBubbles();
 
-// --- Animation loop ---
+// --- Animate ---
 function animate() {
   ctx.clearRect(0, 0, aboutWrapper.offsetWidth, aboutWrapper.offsetHeight);
   bubbles.forEach(bubble => {
@@ -137,9 +137,8 @@ animate();
 // --- Click to pop ---
 canvas.addEventListener("click", e => {
   const rect = canvas.getBoundingClientRect();
-  const dpr = window.devicePixelRatio || 1;
-  const mouseX = (e.clientX - rect.left) * dpr;
-  const mouseY = (e.clientY - rect.top) * dpr;
+  const mouseX = e.clientX - rect.left;
+  const mouseY = e.clientY - rect.top;
 
   bubbles.forEach(bubble => {
     if (!bubble.popped && bubble.isClicked(mouseX, mouseY)) {
