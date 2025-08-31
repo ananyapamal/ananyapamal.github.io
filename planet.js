@@ -1,52 +1,41 @@
-// planet.js
+// Set up the scene, camera, and renderer
+const canvas = document.getElementById('mars-canvas');
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(
-  75, 
-  window.innerWidth / window.innerHeight, 
-  0.1, 
-  1000
-);
-const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById("planetCanvas"), antialias: true });
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ canvas });
+
 renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio(window.devicePixelRatio);
+document.body.appendChild(renderer.domElement);
 
-// --- Lighting ---
-const light = new THREE.DirectionalLight(0xffffff, 1);
-light.position.set(5, 5, 5);
-scene.add(light);
+// Load the Mars texture
+const textureLoader = new THREE.TextureLoader();
+const marsTexture = textureLoader.load('path/to/your/mars_texture.jpg');
 
-const ambientLight = new THREE.AmbientLight(0x404040, 0.6); // soft ambient light
+// Create the Mars sphere
+const geometry = new THREE.SphereGeometry(2, 64, 64);
+const material = new THREE.MeshBasicMaterial({ map: marsTexture });
+const mars = new THREE.Mesh(geometry, material);
+scene.add(mars);
+
+// Add light
+const ambientLight = new THREE.AmbientLight(0xffffff, 1);
 scene.add(ambientLight);
 
-// --- Mars Sphere ---
-const geometry = new THREE.SphereGeometry(2, 128, 128);
+// Position the camera
+camera.position.z = 5;
 
-// Use a red-orange material for Mars look
-const material = new THREE.MeshPhongMaterial({
-  color: 0xd14f3f,        // base Mars red
-  shininess: 10,
-  specular: 0xaaaaaa,
-});
-
-// Optional: add some noise for texture (basic)
-const planet = new THREE.Mesh(geometry, material);
-scene.add(planet);
-
-// --- Camera position ---
-camera.position.z = 6;
-
-// --- Animation ---
+// Animation loop
 function animate() {
-  requestAnimationFrame(animate);
-  planet.rotation.y += 0.002; // slow rotation
-  renderer.render(scene, camera);
+    requestAnimationFrame(animate);
+    mars.rotation.y += 0.005; // Adjust rotation speed here
+    renderer.render(scene, camera);
 }
 
 animate();
 
-// --- Handle window resize ---
+// Handle window resizing
 window.addEventListener('resize', () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
 });
