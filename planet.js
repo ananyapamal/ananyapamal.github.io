@@ -23,6 +23,7 @@ scene.add(ambientLight);
 
 // Position the camera
 camera.position.z = 5;
+camera.position.y = 3;
 
 // Animation loop
 function animate() {
