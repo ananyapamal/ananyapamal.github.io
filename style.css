@@ -69,13 +69,14 @@ section h2 {
 }
 
 /* Make planet canvas a background */
+
 #planetCanvas {
   position: absolute;
-  top: 0;
+  top: -10%; /* move it up */
   left: 0;
   width: 100%;
-  height: 100%;
-  z-index: 0;  /* stays behind */
+  height: 120%; /* stretch a bit so top doesn’t leave gaps */
+  z-index: 0;
   display: block;
 }
 
