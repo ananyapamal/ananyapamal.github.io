@@ -69,7 +69,6 @@ section h2 {
 }
 
 /* Make planet canvas a background */
-
 #planetCanvas {
   position: absolute;
   top: -11%; /* move it up */
