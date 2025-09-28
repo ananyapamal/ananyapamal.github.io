@@ -174,11 +174,7 @@ section h2 {
   height: 100%;
   object-fit: cover;
   display: block;
-
-  /* Start hidden and slightly moved */
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 1s ease-out, transform 1s ease-out;
+  border-radius: 8px;
 }
 
 .education-image img.visible {
