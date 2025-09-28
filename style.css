@@ -72,7 +72,7 @@ section h2 {
 
 #planetCanvas {
   position: absolute;
-  top: -10%; /* move it up */
+  top: -40%; /* move it up */
   left: 0;
   width: 100%;
   height: 120%; /* stretch a bit so top doesn’t leave gaps */
