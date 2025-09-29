@@ -83,15 +83,16 @@ section h2 {
 .hero-text {
   font-size: 3em;
   font-weight: bold;
+  color: white;
 
-  opacity: 0;
-  transform: translateX(-50px);
-  animation: fadeInLeft 2s ease forwards;
-  z-index: 1;  /* stays on top */
   position: absolute;       /* take it out of normal flow */
   top: 10%;                 /* move it 10% down from the top of hero */
   left: 50%;
   transform: translateX(-50%); /* center horizontally */
+
+  opacity: 0;
+  animation: fadeInDown 2s ease forwards;
+  z-index: 1;               /* stays on top of planet */
 }
 
 @keyframes fadeInLeft {
