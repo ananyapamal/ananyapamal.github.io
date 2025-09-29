@@ -24,7 +24,7 @@ const material = new THREE.MeshPhongMaterial({
 // const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
 
 const planet = new THREE.Mesh(geometry, material);
-planet.position.set(0, 0, 0);   // center planet
+planet.position.set(0, 1.5, 0);   // center planet
 camera.position.set(0, 0, 6);   // pull camera back so planet is visible
 scene.add(planet);
 
