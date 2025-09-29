@@ -173,6 +173,10 @@ section h2 {
   margin-bottom: 1em;               /* spacing between paragraphs */
 }
 
+.education-text .school {
+  margin-bottom: 2em; /* space between schools */
+}
+
 .education-image {
   width: 400px;   /* size of image area */
   height: 400px;  /* height of image area */
