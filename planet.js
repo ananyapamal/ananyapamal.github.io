@@ -22,7 +22,8 @@ const material = new THREE.MeshPhongMaterial({
 });
 
 const planet = new THREE.Mesh(geometry, material);
-planet.position.y = 0.5; // lift it slightly
+planet.position.set(0, 0, 0);   // center planet
+camera.position.set(0, 0, 6);   // pull camera back so planet is visible
 scene.add(planet);
 
 camera.position.z = 5;
