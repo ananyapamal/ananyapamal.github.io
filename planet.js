@@ -18,7 +18,7 @@ const textureLoader = new THREE.TextureLoader();
 const marsTexture = textureLoader.load('images/2k_mars.jpg');
 
 const geometry = new THREE.SphereGeometry(2, 64, 64);
-const material = new THREE.MeshBasicMaterial({
+const material = new THREE.MeshPhongMaterial({
   map: marsTexture
 });
 
