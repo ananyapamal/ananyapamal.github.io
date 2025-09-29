@@ -170,7 +170,7 @@ section h2 {
   max-width: 60%;
   display: flex;          /* make it a flex container */
   flex-direction: column; /* stack <p> vertically */
-  gap: 1em;               /* spacing between paragraphs */
+  margin-bottom: 1em;               /* spacing between paragraphs */
 }
 
 .education-image {
