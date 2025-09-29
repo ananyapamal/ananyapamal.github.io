@@ -14,23 +14,20 @@ directionalLight.position.set(5, 3, 5);
 scene.add(directionalLight);
 
 // Load Mars texture
+
+
 const textureLoader = new THREE.TextureLoader();
-const marsTexture = textureLoader.load('images/2k_mars.jpg');
+textureLoader.load('images/2k_mars.jpg', (marsTexture) => {
+  const geometry = new THREE.SphereGeometry(2, 64, 64);
+  const material = new THREE.MeshPhongMaterial({ map: marsTexture });
+  const planet = new THREE.Mesh(geometry, material);
+  planet.position.set(0, 1, 0); // move planet up if you want
+  scene.add(planet);
 
-const geometry = new THREE.SphereGeometry(2, 64, 64);
-const material = new THREE.MeshPhongMaterial({
-  map: marsTexture
+  function animate() {
+    requestAnimationFrame(animate);
+    planet.rotation.y += 0.002;
+    renderer.render(scene, camera);
+  }
+  animate();
 });
-// const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
-
-const planet = new THREE.Mesh(geometry, material);
-planet.position.set(0, 1.5, 0);   // center planet
-camera.position.set(0, 0, 6);   // pull camera back so planet is visible
-scene.add(planet);
-
-function animate() {
-  requestAnimationFrame(animate);
-  planet.rotation.y += 0.002; // slow spin
-  renderer.render(scene, camera);
-}
-animate();
