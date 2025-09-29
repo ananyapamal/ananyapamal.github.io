@@ -18,10 +18,10 @@ const textureLoader = new THREE.TextureLoader();
 const marsTexture = textureLoader.load('images/2k_mars.jpg');
 
 const geometry = new THREE.SphereGeometry(2, 64, 64);
-// const material = new THREE.MeshPhongMaterial({
-//   map: marsTexture
-// });
-const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+const material = new THREE.MeshPhongMaterial({
+  map: marsTexture
+});
+// const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
 
 const planet = new THREE.Mesh(geometry, material);
 planet.position.set(0, 0, 0);   // center planet
