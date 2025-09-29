@@ -168,7 +168,7 @@ section h2 {
 .education-text {
   flex: 1; /* takes remaining space */
   max-width: 60%; /* keeps it narrow */
-  margin-bottom: 1em;
+  margin-bottom: 2em;
 }
 
 .education-image {
