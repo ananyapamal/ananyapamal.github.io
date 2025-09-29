@@ -28,7 +28,7 @@ const textureLoader = new THREE.TextureLoader();
 textureLoader.load('images/2k_mars.jpg',
   (marsTexture) => {
     const geometry = new THREE.SphereGeometry(2, 64, 64);
-    const material = new THREE.MeshPhongMaterial({ map: marsTexture });
+    const material = new THREE.MeshPhongMaterial({ map: marsTexture, shininess: 5, });
     const planet = new THREE.Mesh(geometry, material);
     planet.position.set(0, 0, 0); // center it
     scene.add(planet);
