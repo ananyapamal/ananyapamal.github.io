@@ -83,18 +83,26 @@ section h2 {
 .hero-text {
   font-size: 3em;
   font-weight: bold;
+  color: white;
+
+  position: absolute;      /* let us position freely */
+  top: 10%;                /* distance from top of hero */
+  left: 50%;
+  transform: translateX(-50%); /* center horizontally */
 
   opacity: 0;
-  transform: translateX(-50px);
-  animation: fadeInLeft 2s ease forwards;
-  z-index: 1;  /* stays on top */
-  position: relative;
+  animation: fadeInDown 2s ease forwards; /* new animation */
+  z-index: 1;              /* stays on top of planet */
 }
 
-@keyframes fadeInLeft {
-  to {
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -20px); /* start slightly above */
+  }
+  100% {
     opacity: 1;
-    transform: translateX(0);
+    transform: translate(-50%, 0);     /* final position */
   }
 }
 
