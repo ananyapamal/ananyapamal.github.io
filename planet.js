@@ -16,7 +16,7 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(window.innerWidth, window.innerHeight);
 
 // Lighting
-const ambientLight = new THREE.AmbientLight(0x888888);
+const ambientLight = new THREE.AmbientLight(0x222222); // dim ambient
 scene.add(ambientLight);
 
 const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
