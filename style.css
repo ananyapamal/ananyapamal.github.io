@@ -62,7 +62,7 @@ section h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: black;   /* instead of radial-gradient */
+  background: radial-gradient(circle at bottom, #000000, #050505 80%);
   overflow: hidden;
   position: relative;
   flex-direction: column;
