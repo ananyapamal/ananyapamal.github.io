@@ -14,8 +14,6 @@ directionalLight.position.set(5, 3, 5);
 scene.add(directionalLight);
 
 // Load Mars texture
-
-
 const textureLoader = new THREE.TextureLoader();
 textureLoader.load('images/2k_mars.jpg', (marsTexture) => {
   const geometry = new THREE.SphereGeometry(2, 64, 64);
