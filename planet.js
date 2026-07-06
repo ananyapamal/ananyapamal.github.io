@@ -31,7 +31,6 @@ textureLoader.load(
     planet = new THREE.Mesh(geometry, material);
     planet.position.set(0, 0, 0);
     scene.add(planet);
-    animate();
   },
   undefined,
   err => console.error('Error loading texture', err)
@@ -61,11 +60,13 @@ function resize() {
   if (!width || !height) return;
 
   renderer.setSize(width, height, false);
+  planetCanvas.style.width = width + 'px';
+  planetCanvas.style.height = height + 'px';
   updateCamera();
 }
 
-function animate() {
-  requestAnimationFrame(animate);
+function animatePlanet() {
+  requestAnimationFrame(animatePlanet);
   if (planet) {
     planet.rotation.y += 0.002;
   }
@@ -73,4 +74,11 @@ function animate() {
 }
 
 window.addEventListener('resize', resize);
+
+if (typeof ResizeObserver !== 'undefined') {
+  new ResizeObserver(resize).observe(container);
+}
+
+window.addEventListener('load', resize);
 resize();
+animatePlanet();

@@ -112,7 +112,7 @@ function initBubbles() {
   }
 }
 
-function animate() {
+function animateBubbles() {
   if (width && height) {
     ctx.clearRect(0, 0, width, height);
     bubbles.forEach(bubble => {
@@ -120,7 +120,7 @@ function animate() {
       bubble.draw();
     });
   }
-  requestAnimationFrame(animate);
+  requestAnimationFrame(animateBubbles);
 }
 
 function start() {
@@ -161,7 +161,7 @@ function boot() {
   if (started) return;
   started = true;
   start();
-  animate();
+  animateBubbles();
 }
 
 window.addEventListener('load', boot);
