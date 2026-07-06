@@ -1,52 +1,49 @@
 // bubbles.js
 
-const canvas = document.getElementById("bubbleCanvas");
-const ctx = canvas.getContext("2d");
-const aboutWrapper = document.getElementById("about-wrapper");
+const bubbleCanvas = document.getElementById('bubbleCanvas');
+const ctx = bubbleCanvas.getContext('2d');
+const aboutSection = document.getElementById('about');
 
 let bubbles = [];
 const NUM_BUBBLES = 30;
+let width = 0;
+let height = 0;
 
-// --- Resize canvas to fit container with high-DPI support ---
 function resizeCanvas() {
-  const width = aboutWrapper.clientWidth;
-  const height = aboutWrapper.clientHeight;
-  const dpr = window.devicePixelRatio || 1;
+  width = aboutSection.clientWidth;
+  height = aboutSection.clientHeight;
+  if (!width || !height) return;
 
-  canvas.width = width * dpr;
-  canvas.height = height * dpr;
-  canvas.style.width = width + "px";
-  canvas.style.height = height + "px";
+  const dpr = window.devicePixelRatio || 1;
+  bubbleCanvas.width = Math.round(width * dpr);
+  bubbleCanvas.height = Math.round(height * dpr);
+  bubbleCanvas.style.width = width + 'px';
+  bubbleCanvas.style.height = height + 'px';
 
   ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.scale(dpr, dpr);
 }
 
-window.addEventListener("resize", resizeCanvas);
-resizeCanvas();
-
-// --- Bubble class ---
 class Bubble {
   constructor() {
     this.reset();
   }
 
   reset() {
-    this.x = Math.random() * aboutWrapper.offsetWidth;
-    this.y = Math.random() * aboutWrapper.offsetHeight;
-    this.radius = Math.random() * 15 + 15; // smaller, realistic size
+    this.x = Math.random() * width;
+    this.y = Math.random() * height;
+    this.radius = Math.random() * 15 + 15;
     this.speed = Math.random() * 0.4 + 0.2;
     this.drift = (Math.random() - 0.5) * 0.3;
     this.angle = Math.random() * Math.PI * 2;
     this.popped = false;
-    this.opacity = Math.random() * 0.4 + 0.3;
-    this.baseHue = Math.random() * 360; // subtle color shift
+    this.opacity = Math.random() * 0.4 + 0.4;
+    this.baseHue = Math.random() * 360;
   }
 
   draw() {
     if (this.radius <= 0) return;
 
-    // Radial gradient for realistic bubble look
     const gradient = ctx.createRadialGradient(
       this.x - this.radius * 0.2,
       this.y - this.radius * 0.2,
@@ -57,7 +54,6 @@ class Bubble {
     );
 
     const hue = (this.baseHue + performance.now() / 100) % 360;
-
     gradient.addColorStop(0, `hsla(${hue}, 100%, 95%, ${this.opacity})`);
     gradient.addColorStop(0.4, `hsla(${hue}, 100%, 85%, ${this.opacity * 0.8})`);
     gradient.addColorStop(1, `hsla(${hue}, 100%, 75%, ${this.opacity * 0.5})`);
@@ -67,10 +63,9 @@ class Bubble {
     ctx.fillStyle = gradient;
     ctx.fill();
 
-    // Highlight reflection for shininess
     ctx.beginPath();
     ctx.arc(this.x - this.radius * 0.3, this.y - this.radius * 0.3, this.radius * 0.25, 0, Math.PI * 2);
-    ctx.fillStyle = "rgba(255,255,255,0.6)";
+    ctx.fillStyle = 'rgba(255,255,255,0.6)';
     ctx.fill();
   }
 
@@ -79,26 +74,23 @@ class Bubble {
       this.x += Math.cos(this.angle) * this.speed + this.drift;
       this.y += Math.sin(this.angle) * this.speed;
 
-      // Bounce off edges
       if (this.x - this.radius < 0) {
         this.x = this.radius;
         this.angle = Math.PI - this.angle;
-      } else if (this.x + this.radius > aboutWrapper.offsetWidth) {
-        this.x = aboutWrapper.offsetWidth - this.radius;
+      } else if (this.x + this.radius > width) {
+        this.x = width - this.radius;
         this.angle = Math.PI - this.angle;
       }
 
       if (this.y - this.radius < 0) {
         this.y = this.radius;
         this.angle = -this.angle;
-      } else if (this.y + this.radius > aboutWrapper.offsetHeight) {
-        this.y = aboutWrapper.offsetHeight - this.radius;
+      } else if (this.y + this.radius > height) {
+        this.y = height - this.radius;
         this.angle = -this.angle;
       }
-    } else {
-      // Shrink smoothly when popped
-      if (this.radius > 0) this.radius -= 1.5;
-      else this.radius = 0;
+    } else if (this.radius > 0) {
+      this.radius -= 1.5;
     }
   }
 
@@ -113,7 +105,6 @@ class Bubble {
   }
 }
 
-// --- Initialize bubbles ---
 function initBubbles() {
   bubbles = [];
   for (let i = 0; i < NUM_BUBBLES; i++) {
@@ -121,29 +112,60 @@ function initBubbles() {
   }
 }
 
-initBubbles();
-
-// --- Animation loop ---
 function animate() {
-  ctx.clearRect(0, 0, aboutWrapper.offsetWidth, aboutWrapper.offsetHeight);
-  bubbles.forEach(bubble => {
-    bubble.update();
-    bubble.draw();
-  });
+  if (width && height) {
+    ctx.clearRect(0, 0, width, height);
+    bubbles.forEach(bubble => {
+      bubble.update();
+      bubble.draw();
+    });
+  }
   requestAnimationFrame(animate);
 }
 
-animate();
+function start() {
+  resizeCanvas();
+  if (!width || !height) return;
+  initBubbles();
+}
 
-// --- Click to pop ---
-canvas.addEventListener("click", e => {
-  const rect = canvas.getBoundingClientRect();
-  const mouseX = e.clientX - rect.left;
-  const mouseY = e.clientY - rect.top;
+function handlePop(clientX, clientY) {
+  const rect = bubbleCanvas.getBoundingClientRect();
+  const x = clientX - rect.left;
+  const y = clientY - rect.top;
 
   bubbles.forEach(bubble => {
-    if (!bubble.popped && bubble.isClicked(mouseX, mouseY)) {
+    if (!bubble.popped && bubble.isClicked(x, y)) {
       bubble.pop();
     }
   });
-});
+}
+
+bubbleCanvas.addEventListener('click', e => handlePop(e.clientX, e.clientY));
+
+bubbleCanvas.addEventListener('touchstart', e => {
+  e.preventDefault();
+  const touch = e.touches[0];
+  handlePop(touch.clientX, touch.clientY);
+}, { passive: false });
+
+window.addEventListener('resize', start);
+
+if (typeof ResizeObserver !== 'undefined') {
+  new ResizeObserver(start).observe(aboutSection);
+}
+
+let started = false;
+
+function boot() {
+  if (started) return;
+  started = true;
+  start();
+  animate();
+}
+
+window.addEventListener('load', boot);
+
+if (document.readyState === 'complete') {
+  boot();
+}
