@@ -386,6 +386,16 @@ section {
   margin-bottom: 0.5rem;
 }
 
+.timeline-org a {
+  color: var(--lightblue);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.timeline-org a:hover {
+  color: #fff;
+}
+
 .timeline-content p:last-child {
   font-size: 0.95rem;
   color: var(--text);

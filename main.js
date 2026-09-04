@@ -63,4 +63,12 @@
   requestAnimationFrame(() => {
     document.querySelectorAll('.hero .reveal').forEach(el => el.classList.add('visible'));
   });
+
+  // Wake GhostBuster AI on Render so the free-tier service is warm when clicked
+  const GHOSTBUSTER_URL = 'https://ghostbuster-ai-js5l.onrender.com/';
+  function wakeGhostBuster() {
+    fetch(GHOSTBUSTER_URL, { mode: 'no-cors', cache: 'no-store' }).catch(() => {});
+  }
+  wakeGhostBuster();
+  setInterval(wakeGhostBuster, 10 * 60 * 1000);
 })();
